@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthActionsContext } from "../providers/auth/useAuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Login = () => {
 
   return (
     <>
-      this is login<Button onClick={login}>Login</Button>
+      this is login<button onClick={login}>Login</button>
     </>
   );
 };
