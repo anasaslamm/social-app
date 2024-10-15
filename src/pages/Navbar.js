@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
+import { useNavigate } from "react-router-dom";
+import { useAuthActionsContext } from "../providers/auth/useAuthContext";
 import React, { useState } from "react";
 import { Person } from "@mui/icons-material";
 
@@ -46,6 +47,13 @@ const UserIcon = styled(Box)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const navigate = useNavigate();
+  const { setUser, logOut } = useAuthActionsContext();
+  const login = () => {
+    setUser({ name: "abc" });
+    console.log("attempting...");
+    navigate("/");
+  };
   const [open, setOpen] = useState(false);
   return (
     <React.Fragment>
@@ -96,7 +104,7 @@ function Navbar() {
           >
             <MenuItem>Profile</MenuItem>
             <MenuItem>My account</MenuItem>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem onClick={login}>Logout</MenuItem>
           </Menu>
         </StyledToolbar>
       </AppBar>

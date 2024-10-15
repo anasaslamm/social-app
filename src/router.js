@@ -9,19 +9,9 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-import {
-  useAuthContext,
-  useAuthActionsContext,
-} from "./providers/auth/useAuthContext";
+import { useAuthContext } from "./providers/auth/useAuthContext";
+import Home from "./pages/Home";
 
-const Home = () => {
-  const { logOut } = useAuthActionsContext();
-  return (
-    <>
-      This is home <button onClick={logOut}>logout</button>
-    </>
-  );
-};
 const Profile = () => {
   return <>This is profile</>;
 };

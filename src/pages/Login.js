@@ -1,19 +1,33 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuthActionsContext } from "../providers/auth/useAuthContext";
+
+import Navbar from "./Navbar";
+import Rightbar from "./Rightbar";
+import Feed from "./Feed";
+import Sidebar from "./Sidebar";
+
+import { Box, Stack, createTheme, ThemeProvider } from "@mui/material";
+import { useState } from "react";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const { setUser, logOut } = useAuthActionsContext();
-  const login = () => {
-    setUser({ name: "abc" });
-    console.log("attempting...");
-    navigate("/");
-  };
+  const [mode, setMode] = useState("dark");
 
+  const darkTheme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
   return (
     <>
-      this is login<button onClick={login}>Login</button>
+      <ThemeProvider theme={darkTheme}>
+        <Box bgcolor={"background.default"} color={"text.primary"}>
+          <Navbar />
+          <Stack direction="row" spacing={2} justifyContent={"space-between"}>
+            <Rightbar setMode={setMode} mode={mode} />
+            <Feed />
+            <Sidebar />
+          </Stack>
+        </Box>
+      </ThemeProvider>
     </>
   );
 };
