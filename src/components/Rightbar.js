@@ -16,7 +16,7 @@ import {
   Switch,
 } from "@mui/material";
 import React from "react";
-import Add from "./Add";
+import Add from "../components/Add";
 
 function Rightbar({ mode, setMode }) {
   return (
