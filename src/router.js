@@ -7,7 +7,6 @@ import {
   RouterProvider,
   Outlet,
   Navigate,
-  useNavigate,
 } from "react-router-dom";
 import { useAuthContext } from "./providers/auth/useAuthContext";
 import Home from "./pages/Home";

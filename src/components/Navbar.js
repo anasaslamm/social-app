@@ -104,7 +104,7 @@ function Navbar() {
           >
             <MenuItem>Profile</MenuItem>
             <MenuItem>My account</MenuItem>
-            <MenuItem onClick={login}>Logout</MenuItem>
+            <MenuItem onClick={logOut}>Logout</MenuItem>
           </Menu>
         </StyledToolbar>
       </AppBar>

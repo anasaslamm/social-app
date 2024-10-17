@@ -21,6 +21,7 @@ export const AuthContextProvider = ({ children }) => {
   };
   const logOut = async () => {
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   useEffect(() => {
