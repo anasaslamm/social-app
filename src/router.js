@@ -18,6 +18,7 @@ import Home from "./pages/Home";
 import ForgetPassword from "./pages/ForgetPassword";
 import LandingPage from "./pages/LandingPage";
 import { Typography } from "@mui/material";
+import ErrorPage from "./pages/error-page";
 
 const Profile = () => {
   return <>This is profile</>;
@@ -69,6 +70,7 @@ function MyApp() {
           <Layout />
         </ProtectedRoute>
       ),
+      errorElement: <ErrorPage />,
       children: [
         {
           path: "home",
@@ -87,6 +89,7 @@ function MyApp() {
           <Layout />
         </GuestRoute>
       ),
+      errorElement: <ErrorPage />,
       children: [
         {
           path: "login",
@@ -109,6 +112,7 @@ function MyApp() {
           <Layout />
         </PublicRoute>
       ),
+      errorElement: <ErrorPage />,
       children: [
         {
           path: "/",
