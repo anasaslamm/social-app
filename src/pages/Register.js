@@ -1,69 +1,38 @@
-// Register.js
-import React, { useState } from "react";
-import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const loginto = () => {
+    navigate("/auth/login");
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
-  };
-
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 8 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Register
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            margin="normal"
-            required
-          />
-          <TextField
-            fullWidth
-            label="Email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            margin="normal"
-            required
-          />
-          <TextField
-            fullWidth
-            label="Password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            margin="normal"
-            required
-          />
-          <Button type="submit" variant="contained" color="primary" fullWidth>
+    <React.Fragment>
+      <Container sx={{ padding: "30px" }}>
+        <Box
+          sx={{
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
+        >
+          <Typography variant="h3" sx={{ margin: 4 }}>
             Register
-          </Button>
-        </form>
-      </Box>
-    </Container>
+          </Typography>
+          <TextField label="Email or username" />
+          <TextField label="First Name" />
+          <TextField label="Last Name" />
+          <TextField label="Password" type="password" />
+          <TextField label="Confirm Password" type="password" />
+
+          <Button onClick={loginto}>Login Page</Button>
+          <Button variant="contained">Submit</Button>
+        </Box>
+      </Container>
+    </React.Fragment>
   );
 };
 

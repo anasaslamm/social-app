@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { AuthActionsContext, AuthContext } from "./authContext";
 
@@ -17,10 +17,15 @@ export const AuthContextProvider = ({ children }) => {
     //   }
     // );
 
+    const res = await axios.post(
+      "https://jsonplaceholder.typicode.com/users",
+      inputs
+    );
     setUser("res.data");
   };
   const logOut = async () => {
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   useEffect(() => {
