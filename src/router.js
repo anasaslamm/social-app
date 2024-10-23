@@ -47,7 +47,7 @@ function MyApp() {
   const GuestRoute = ({ children }) => {
     console.log("p.route", user);
     if (user) {
-      return <Navigate to="/" />;
+      return <Navigate to="/app/home" />;
     }
 
     return children;
@@ -126,25 +126,32 @@ function MyApp() {
     return (
       <Router>
         <Routes>
-          <Route element={<ProtectedRoute />}>
-            <Route element={<Outlet />}>
-              <Route path="/app/home" element={<Home />} />
-              <Route path="/app/profile/:id" element={<Profile />} />
-            </Route>
-          </Route>
+          <Route
+            path="/app/*"
+            element={
+              <ProtectedRoute>
+                <Routes>
+                  <Route path="home" element={<Home />} />
+                  <Route path="profile/:id" element={<Profile />} />
+                </Routes>
+              </ProtectedRoute>
+            }
+          />
 
-          <Route element={<GuestRoute />} />
-          <Route element={<Outlet />}>
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/register" element={<Register />} />
-            <Route path="/auth/forgetpassword" element={<ForgetPassword />} />
-          </Route>
+          <Route
+            path="/auth/*"
+            element={
+              <GuestRoute>
+                <Routes>
+                  <Route path="login" element={<Login />} />
+                  <Route path="register" element={<Register />} />
+                  <Route path="forgetpassword" element={<ForgetPassword />} />
+                </Routes>
+              </GuestRoute>
+            }
+          />
 
-          <Route element={<PublicRoute />}>
-            <Route element={<Outlet />}>
-              <Route path="/" element={<LandingPage />} />
-            </Route>
-          </Route>
+          <Route path="/" element={<LandingPage />} />
         </Routes>
       </Router>
     );

@@ -73,10 +73,10 @@ const Login = () => {
         >
           Login
         </Button>
-        <Button component={Link} to="/register">
+        <Button component={Link} to="/auth/register">
           Register
         </Button>
-        <Button component={Link} to="/forgetpassword">
+        <Button component={Link} to="/auth/forgetpassword">
           Forget Password
         </Button>
       </Box>
