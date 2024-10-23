@@ -122,65 +122,38 @@ function MyApp() {
     },
   ]);
 
-  // const router2 = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <Outlet />,
-  //     children: [
-  //       {
-  //         path: "/",
-  //         element: <Login />,
-  //       },
-  //       {
-  //         path: "/home",
-  //         element: <Home />,
-  //       },
-  //     ],
-  //   },
-  // ]);
+  const AppRouter = () => {
+    return (
+      <Router>
+        <Routes>
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Outlet />}>
+              <Route path="/app/home" element={<Home />} />
+              <Route path="/app/profile/:id" element={<Profile />} />
+            </Route>
+          </Route>
 
-  // const Main = () => {
-  //   return (
-  //     <React.Fragment>
-  //       <Typography>Main</Typography>
-  //       <Outlet />
-  //     </React.Fragment>
-  //   );
-  // };
+          <Route element={<GuestRoute />} />
+          <Route element={<Outlet />}>
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/register" element={<Register />} />
+            <Route path="/auth/forgetpassword" element={<ForgetPassword />} />
+          </Route>
 
-  // const Child = () => {
-  //   return (
-  //     <React.Fragment>
-  //       <Typography>Child</Typography>
-  //       <Outlet />
-  //     </React.Fragment>
-  //   );
-  // };
-
-  // const InnerChild = () => {
-  //   return (
-  //     <React.Fragment>
-  //       <Typography variant="body1">Hello</Typography>
-  //     </React.Fragment>
-  //   );
-  // };
-
-  // const AppRouter = () => {
-  //   return (
-  //     <Router>
-  //       <Routes>
-  //         <Route path="/" element={<Main />} />
-  //         <Route path="child" element={<Child />} />
-  //         <Route path="child/innerchild" element={<InnerChild />} />
-  //       </Routes>
-  //     </Router>
-  //   );
-  // };
+          <Route element={<PublicRoute />}>
+            <Route element={<Outlet />}>
+              <Route path="/" element={<LandingPage />} />
+            </Route>
+          </Route>
+        </Routes>
+      </Router>
+    );
+  };
 
   return (
     <div>
-      <RouterProvider router={router} />
-      {/* <AppRouter /> */}
+      {/* <RouterProvider router={router} /> */}
+      <AppRouter />
     </div>
   );
 }
