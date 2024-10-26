@@ -20,7 +20,13 @@ app.listen(PORT, () => {
   console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
 });
 
-// index.js
+app.get("/api/hello", (req, res) => {
+  res.json({ message: "Hello from Express API!" });
+});
+
+app.get("/", (req, res) => {
+  res.send("Hi! I'm Anas");
+});
 
 /**
  * @swagger
@@ -31,6 +37,3 @@ app.listen(PORT, () => {
  *       200:
  *         description: Successful response
  */
-app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from Express API!" });
-});
