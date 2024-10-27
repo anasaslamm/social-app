@@ -159,8 +159,8 @@ function MyApp() {
 
   return (
     <div>
-      {/* <RouterProvider router={router} /> */}
-      <AppRouter />
+      <RouterProvider router={router} />
+      {/* <AppRouter /> */}
     </div>
   );
 }
