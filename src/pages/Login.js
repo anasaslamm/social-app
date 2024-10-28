@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const { setUser } = useAuthActionsContext();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const validationSchema = yup.object({
     email: yup
@@ -28,15 +26,28 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const userData = {
-        email: email,
-        password: password,
-      };
-
-      setUser(userData); // This sets the user in the context
+      fetch(
+        "https://nestjs-boilerplate-test.herokuapp.com/api/v1/auth/email/login",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      )
+        .then((response) => {
+          console.log("API Response", response.body);
+          if (response.ok) {
+            // setUser(userData); // This sets the user in the context
+          }
+        })
+        .catch((e) => {
+          console.log("API Error", e);
+        });
 
       // Optionally, you can redirect the user to the homepage after login
-      window.location.href = "/app/home";
+      // window.location.href = "/app/home";
     },
   });
 

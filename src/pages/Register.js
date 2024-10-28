@@ -46,18 +46,32 @@ const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const userData = {
-        email: formik.values.email,
-        firstName: formik.values.firstName,
-        lastName: formik.values.lastName,
-        password: formik.values.password,
-        confirmPassword: formik.values.confirmPassword,
-      };
+      fetch(
+        "https://nestjs-boilerplate-test.herokuapp.com/api/v1/auth/email/register",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      )
+        .then((response) => {
+          console.log("API Response", response.body);
+          if (response.ok) {
+            // setUser(userData); // This sets the user in the context
+          }
+        })
+        .catch((e) => {
+          console.log("API Error", e);
+        });
 
-      setUser(userData); // This sets the user in the context
+      // setUser({
+      //   email: values.email,
+      //   password: values.password,
+      // }); // This sets the user in the context
 
-      // Optionally, you can redirect the user to the homepage after login
-      navigate("/auth/login");
+      // navigate("/auth/login");
     },
   });
 
@@ -81,7 +95,8 @@ const Register = () => {
             fullWidth
             id="email"
             name="email"
-            label="Email"
+            label="Anas"
+            placeholder="Please enter email"
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
