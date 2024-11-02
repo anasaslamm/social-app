@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useAuthActionsContext } from "../providers/auth/useAuthContext";
 import { TextField, Button, Box, Typography, Container } from "@mui/material";
 import { useFormik } from "formik";
@@ -22,7 +21,7 @@ const Login = () => {
   const formik = useFormik({
     initialValues: {
       email: "anas@example.com",
-      password: "foobar",
+      password: "P@ssword123",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -36,10 +35,15 @@ const Login = () => {
           body: JSON.stringify(values),
         }
       )
-        .then((response) => {
+        .then(async (response) => {
           console.log("API Response", response.body);
           if (response.ok) {
-            // setUser(userData); // This sets the user in the context
+            const userData = {
+              email: values.email,
+              password: values.password,
+            };
+            // const userData = await response.json();
+            setUser(userData); // This sets the user in the context
           }
         })
         .catch((e) => {

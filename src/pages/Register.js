@@ -59,7 +59,14 @@ const Register = () => {
         .then((response) => {
           console.log("API Response", response.body);
           if (response.ok) {
-            // setUser(userData); // This sets the user in the context
+            const userData = {
+              email: values.email,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              password: values.password,
+              confirmPassword: values.confirmPassword,
+            };
+            setUser(userData); // This sets the user in the context
           }
         })
         .catch((e) => {
@@ -71,7 +78,7 @@ const Register = () => {
       //   password: values.password,
       // }); // This sets the user in the context
 
-      // navigate("/auth/login");
+      navigate("/auth/login");
     },
   });
 
@@ -95,7 +102,7 @@ const Register = () => {
             fullWidth
             id="email"
             name="email"
-            label="Anas"
+            label="Email"
             placeholder="Please enter email"
             value={formik.values.email}
             onChange={formik.handleChange}

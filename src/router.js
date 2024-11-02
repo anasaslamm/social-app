@@ -17,7 +17,6 @@ import { useAuthContext } from "./providers/auth/useAuthContext";
 import Home from "./pages/Home";
 import ForgetPassword from "./pages/ForgetPassword";
 import LandingPage from "./pages/LandingPage";
-import { Typography } from "@mui/material";
 import ErrorPage from "./pages/error-page";
 
 const Profile = () => {
@@ -159,8 +158,8 @@ function MyApp() {
 
   return (
     <div>
-      {/* <RouterProvider router={router} /> */}
-      <AppRouter />
+      <RouterProvider router={router} />
+      {/* <AppRouter /> */}
     </div>
   );
 }
