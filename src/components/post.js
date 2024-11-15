@@ -14,15 +14,27 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
+import { useQuery } from "@tanstack/react-query";
 
 const Post = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["post"],
+    queryFn: () =>
+      fetch("https://jsonplaceholder.typicode.com/posts").then((res) =>
+        res.json()
+      ),
+  });
+
+  if (isLoading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography>Error loading posts.</Typography>;
+
   return (
     <React.Fragment>
       <Card>
         <CardHeader
           avatar={
             <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
-              R
+              Ans
             </Avatar>
           }
           action={
@@ -41,9 +53,9 @@ const Post = () => {
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+            {data.map((post) => (
+              <Typography key={post.id}>{post.title}</Typography>
+            ))}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

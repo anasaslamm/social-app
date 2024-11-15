@@ -29,7 +29,26 @@ const Register = () => {
       .string("Enter your password")
       .min(8, "Password should be of minimum 8 characters length")
       .required("Password is required")
-      .matches(passRules),
+      .test(
+        "uppercase-check",
+        "Password must contain at least one uppercase letter",
+        (value) => /[A-Z]/.test(value)
+      )
+      .test(
+        "lowercase-check",
+        "Password must contain at least one lowercase letter",
+        (value) => /[a-z]/.test(value)
+      )
+      .test(
+        "number-check",
+        "Password must contain at least one number",
+        (value) => /\d/.test(value)
+      )
+      .test(
+        "special-character-check",
+        "Password must contain at least one special character",
+        (value) => /[!@#$%^&*()_+]/.test(value)
+      ),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password")], "Passwords must match")

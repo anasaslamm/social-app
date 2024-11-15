@@ -23,6 +23,30 @@ const Profile = () => {
   return <>This is profile</>;
 };
 
+// const route = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Home />,
+//   },
+//   {
+//     path: "/blog/*",
+//     children: [
+//       {
+//         index: true,
+//         element: <h1>Blogs Index</h1>,
+//       },
+//       {
+//         path: "*",
+//         element: <BlogApp />
+//       }
+//     ],
+//   },
+//   {
+//     path: "*",
+//     element: <Root />
+//   }
+// ]);
+
 function MyApp() {
   const { user, isLoaded } = useAuthContext();
   console.log(user);

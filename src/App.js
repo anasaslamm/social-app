@@ -1,11 +1,21 @@
 import React from "react";
-import Router from "./router";
 import MyApp from "./router";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
     <React.Fragment>
-      <MyApp />
+      <QueryClientProvider client={queryClient}>
+        <MyApp />
+      </QueryClientProvider>
     </React.Fragment>
   );
 }
