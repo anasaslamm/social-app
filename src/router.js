@@ -85,65 +85,70 @@ function MyApp() {
     return children;
   };
 
-  const router = createBrowserRouter([
+  const router = createBrowserRouter(
+    [
+      {
+        path: "/app",
+        element: (
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "home",
+            element: <Home />,
+          },
+          {
+            path: "profile/:id",
+            element: <Profile />,
+          },
+        ],
+      },
+      {
+        path: "/auth",
+        element: (
+          <GuestRoute>
+            <Layout />
+          </GuestRoute>
+        ),
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "login",
+            element: <Login />,
+          },
+          {
+            path: "register",
+            element: <Register />,
+          },
+          {
+            path: "forgetpassword",
+            element: <ForgetPassword />,
+          },
+        ],
+      },
+      {
+        path: "/",
+        element: (
+          <PublicRoute>
+            <Layout />
+          </PublicRoute>
+        ),
+        errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "/",
+            element: <LandingPage />,
+          },
+        ],
+      },
+    ],
     {
-      path: "/app",
-      element: (
-        <ProtectedRoute>
-          <Layout />
-        </ProtectedRoute>
-      ),
-      errorElement: <ErrorPage />,
-      children: [
-        {
-          path: "home",
-          element: <Home />,
-        },
-        {
-          path: "profile/:id",
-          element: <Profile />,
-        },
-      ],
-    },
-    {
-      path: "/auth",
-      element: (
-        <GuestRoute>
-          <Layout />
-        </GuestRoute>
-      ),
-      errorElement: <ErrorPage />,
-      children: [
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "register",
-          element: <Register />,
-        },
-        {
-          path: "forgetpassword",
-          element: <ForgetPassword />,
-        },
-      ],
-    },
-    {
-      path: "/",
-      element: (
-        <PublicRoute>
-          <Layout />
-        </PublicRoute>
-      ),
-      errorElement: <ErrorPage />,
-      children: [
-        {
-          path: "/",
-          element: <LandingPage />,
-        },
-      ],
-    },
-  ]);
+      basename: "/anas",
+    }
+  );
 
   const AppRouter = () => {
     return (
