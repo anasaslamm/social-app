@@ -150,6 +150,10 @@ function MyApp() {
     }
   );
 
+  if (!window.location.pathname.startsWith("/anas")) {
+    window.location.replace("/anas");
+  }
+
   const AppRouter = () => {
     return (
       <Router>
