@@ -36,17 +36,59 @@ export function Home_Layout() {
   }
 
   return (
-    <div>
-      <h1>Posts</h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.body}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <React.Fragment>
+      {posts.map((post) => (
+        <Card key={post.id} sx={{ margin: "20px" }}>
+          <CardHeader
+            avatar={
+              <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
+                {post.title[0]?.toUpperCase() || "P"}
+              </Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title={post.title}
+            subheader={`Post ID: ${post.id}`}
+          />
+          <CardMedia
+            component="img"
+            height="200"
+            image="https://via.placeholder.com/400x200" // Placeholder image for posts
+            alt={`Image for ${post.title}`}
+          />
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {post.body}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <Checkbox
+                icon={<FavoriteBorder />}
+                checkedIcon={<Favorite sx={{ color: "red" }} />}
+              />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
+      ))}
+      {/* <div>
+        <h1>Posts</h1>
+        <ul>
+          {posts.map((post) => (
+            <li key={post.id}>
+              <h2>{post.title}</h2>
+              <p>{post.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div> */}
+    </React.Fragment>
   );
 }
 
