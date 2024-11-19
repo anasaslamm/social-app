@@ -8,7 +8,7 @@ import Sidebar from "../components/Sidebar";
 import { Box, Stack, createTheme, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 
-const Main = () => {
+export const Home = () => {
   const [mode, setMode] = useState("dark");
 
   const darkTheme = createTheme({
@@ -31,5 +31,3 @@ const Main = () => {
     </>
   );
 };
-
-export default Main;

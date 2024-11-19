@@ -11,13 +11,15 @@ import {
   Navigate,
   Routes,
   Route,
+  useLoaderData,
   Link,
 } from "react-router-dom";
 import { useAuthContext } from "./providers/auth/useAuthContext";
-import Home from "./pages/Home";
+import { Home } from "./pages/Home";
 import ForgetPassword from "./pages/ForgetPassword";
 import LandingPage from "./pages/LandingPage";
 import ErrorPage from "./pages/error-page";
+import { homeLoader } from "./components/Post";
 
 const Profile = () => {
   return <>This is profile</>;
@@ -51,6 +53,8 @@ function MyApp() {
   const { user, isLoaded } = useAuthContext();
   console.log(user);
   const Layout = () => {
+    const data = useLoaderData();
+    console.log("Hydration Data in Layout:", data);
     return (
       <div>
         <Outlet />
@@ -85,6 +89,14 @@ function MyApp() {
     return children;
   };
 
+  const hydrationData = {
+    loaderData: {
+      root: { message: "Root data loader" },
+      auth: { message: "Guest" },
+      app: { message: "Your Authorize Protected Route Initialized" },
+    },
+  };
+
   const router = createBrowserRouter(
     [
       {
@@ -99,6 +111,7 @@ function MyApp() {
           {
             path: "home",
             element: <Home />,
+            loader: homeLoader,
           },
           {
             path: "profile/:id",
@@ -147,6 +160,10 @@ function MyApp() {
     ],
     {
       basename: "/anas",
+      future: {
+        v7_partialHydration: true,
+      },
+      hydrationData,
     }
   );
 

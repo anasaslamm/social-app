@@ -16,62 +16,98 @@ import Favorite from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { useQuery } from "@tanstack/react-query";
 
-const Post = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["post"],
-    queryFn: () =>
-      fetch("https://jsonplaceholder.typicode.com/posts").then((res) =>
-        res.json()
-      ),
-  });
+import { json } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
-  if (isLoading) return <Typography>Loading...</Typography>;
-  if (error) return <Typography>Error loading posts.</Typography>;
+export async function homeLoader() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  console.log("API response status:", response.status);
+  const posts = await response.json();
+  console.log("Posts data:", posts);
+  return json(posts);
+}
+
+export function Home_Layout() {
+  const posts = useLoaderData() || [];
+  console.log("Posts in Home_Layout:", posts); // Fallback to an empty array
+
+  if (!Array.isArray(posts) || posts.length === 0) {
+    return <h2>No posts available</h2>;
+  }
 
   return (
-    <React.Fragment>
-      <Card>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
-              Ans
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-        <CardMedia
-          component="img"
-          height="300"
-          image="https://mir-s3-cdn-cf.behance.net/project_modules/1400/ea80c399456099.5ef337f651e1d.jpg"
-          alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {data.map((post) => (
-              <Typography key={post.id}>{post.title}</Typography>
-            ))}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <Checkbox
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite sx={{ color: "red" }} />}
-            />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
-    </React.Fragment>
+    <div>
+      <h1>Posts</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
-};
+}
 
-export default Post;
+// const Post = () => {
+//   //   const { data, isLoading, error } = useQuery({
+//   //     queryKey: ["post"],
+//   //     queryFn: () =>
+//   //       fetch("https://jsonplaceholder.typicode.com/posts").then((res) =>
+//   //         res.json()
+//   //       ),
+//   //   });
+
+//   //   if (isLoading) return <Typography>Loading...</Typography>;
+//   //   if (error) return <Typography>Error loading posts.</Typography>;
+
+//   const posts = useLoaderData();
+
+//   return (
+//     <React.Fragment>
+//       <Card>
+//         <CardHeader
+//           avatar={
+//             <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
+//               Ans
+//             </Avatar>
+//           }
+//           action={
+//             <IconButton aria-label="settings">
+//               <MoreVertIcon />
+//             </IconButton>
+//           }
+//           title="Shrimp and Chorizo Paella"
+//           subheader="September 14, 2016"
+//         />
+//         <CardMedia
+//           component="img"
+//           height="300"
+//           image="https://mir-s3-cdn-cf.behance.net/project_modules/1400/ea80c399456099.5ef337f651e1d.jpg"
+//           alt="Paella dish"
+//         />
+//         <CardContent>
+//           <Typography variant="body2" color="text.secondary">
+//             {data.map((post) => (
+//               <Typography key={post.id}>{post.title}</Typography>
+//             ))}
+//           </Typography>
+//         </CardContent>
+//         <CardActions disableSpacing>
+//           <IconButton aria-label="add to favorites">
+//             <Checkbox
+//               icon={<FavoriteBorder />}
+//               checkedIcon={<Favorite sx={{ color: "red" }} />}
+//             />
+//           </IconButton>
+//           <IconButton aria-label="share">
+//             <ShareIcon />
+//           </IconButton>
+//         </CardActions>
+//       </Card>
+//     </React.Fragment>
+//   );
+// };
+
+// export default Post;
