@@ -13,6 +13,7 @@ import {
   Route,
   useLoaderData,
   Link,
+  useParams,
 } from "react-router-dom";
 import { useAuthContext } from "./providers/auth/useAuthContext";
 import { Home } from "./pages/Home";
@@ -22,7 +23,8 @@ import ErrorPage from "./pages/error-page";
 import { homeLoader } from "./components/Post";
 
 const Profile = () => {
-  return <>This is profile</>;
+  const { id } = useParams();
+  return <>This is profile {id}</>;
 };
 
 // const route = createBrowserRouter([
@@ -53,8 +55,6 @@ function MyApp() {
   const { user, isLoaded } = useAuthContext();
   console.log(user);
   const Layout = () => {
-    const data = useLoaderData();
-    console.log("Hydration Data in Layout:", data);
     return (
       <div>
         <Outlet />
@@ -93,6 +93,7 @@ function MyApp() {
     loaderData: {
       root: { message: "Root data loader" },
       auth: { message: "Guest" },
+      index: { message: "Index data loader" },
       app: { message: "Your Authorize Protected Route Initialized" },
     },
   };
@@ -112,6 +113,7 @@ function MyApp() {
             path: "home",
             element: <Home />,
             loader: homeLoader,
+            HydrateFallback: () => <div>Loading Index...</div>,
           },
           {
             path: "profile/:id",

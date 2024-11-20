@@ -21,9 +21,9 @@ import { useLoaderData } from "react-router-dom";
 
 export async function homeLoader() {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-  console.log("API response status:", response.status);
+  // console.log("API response status:", response.status);
   const posts = await response.json();
-  console.log("Posts data:", posts);
+  // console.log("Posts data:", posts);
   return json(posts);
 }
 
@@ -51,7 +51,7 @@ export function Home_Layout() {
               </IconButton>
             }
             title={post.title}
-            subheader={`Post ID: ${post.id}`}
+            subheader={`Post IDs: ${post.id}`}
           />
           <CardMedia
             component="img"
