@@ -14,6 +14,7 @@ import {
   useLoaderData,
   Link,
   useParams,
+  HashRouter,
 } from "react-router-dom";
 import { useAuthContext } from "./providers/auth/useAuthContext";
 import { Home } from "./pages/Home";
@@ -54,6 +55,7 @@ const Profile = () => {
 function MyApp() {
   const { user, isLoaded } = useAuthContext();
   console.log(user);
+
   const Layout = () => {
     return (
       <div>
@@ -175,7 +177,7 @@ function MyApp() {
 
   const AppRouter = () => {
     return (
-      <Router>
+      <HashRouter>
         <Routes>
           <Route
             path="/app/*"
@@ -204,7 +206,7 @@ function MyApp() {
 
           <Route path="/" element={<LandingPage />} />
         </Routes>
-      </Router>
+      </HashRouter>
     );
   };
 
