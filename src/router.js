@@ -175,9 +175,52 @@ function MyApp() {
     window.location.replace("/anas");
   }
 
+  //Build a simple app with nested routes for /dashboard, /dashboard/analytics, and
+  // /dashboard/reports. Display a common sidebar for all routes under /dashboard.
+
+  const struct = () => {
+    return (
+      <React.Fragment>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/analytics">Analytics</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/reports">Reports</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <Outlet />
+      </React.Fragment>
+    );
+  };
+
+  const dashRouter = createBrowserRouter([
+    {
+      path: "/dashboard",
+      element: <struct />,
+      children: [
+        {
+          path: "/analytics",
+          element: <Analytics />,
+        },
+        {
+          path: "/reports",
+          element: <Reports />,
+        },
+      ],
+    },
+  ]);
+
   const AppRouter = () => {
     return (
-      <HashRouter>
+      <HashRouter future={{ v7_partialHydration: true }}>
         <Routes>
           <Route
             path="/app/*"
