@@ -11,8 +11,8 @@ const Register = () => {
 
   const loginto = () => {
     const userData = {
-      email: formik.values.email,
-      password: formik.values.password,
+      email: "",
+      password: "",
     };
     // const userData = await response.json();
     setUser(userData); // This sets the user in the context
@@ -91,19 +91,18 @@ const Register = () => {
               password: values.password,
               confirmPassword: values.confirmPassword,
             };
-            setUser(userData); // This sets the user in the context
+            // setUser(userData); // This sets the user in the context
           }
         })
         .catch((e) => {
           console.log("API Error", e);
-        });
+        })
+        .finally(navigate("/auth/login"));
 
       // setUser({
       //   email: values.email,
       //   password: values.password,
       // }); // This sets the user in the context
-
-      navigate("/auth/login");
     },
   });
 
@@ -187,7 +186,14 @@ const Register = () => {
             }
           />
 
-          <Button onClick={loginto}>Login Page</Button>
+          <Button
+            onClick={(e) => {
+              e.preventDefault(); // Prevent form submission
+              loginto();
+            }}
+          >
+            Login Page
+          </Button>
           <Button type="submit" variant="contained">
             Submit
           </Button>
