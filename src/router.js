@@ -178,45 +178,52 @@ function MyApp() {
   //Build a simple app with nested routes for /dashboard, /dashboard/analytics, and
   // /dashboard/reports. Display a common sidebar for all routes under /dashboard.
 
-  const struct = () => {
-    return (
-      <React.Fragment>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <Link to="/dashboard/analytics">Analytics</Link>
-              </li>
-              <li>
-                <Link to="/dashboard/reports">Reports</Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <Outlet />
-      </React.Fragment>
-    );
-  };
+  // const Analytics = () => <h2>Analytics Page</h2>;
+  // const Reports = () => <h2>Reports Page</h2>;
 
-  const dashRouter = createBrowserRouter([
-    {
-      path: "/dashboard",
-      element: <struct />,
-      children: [
-        {
-          path: "/analytics",
-          element: <Analytics />,
-        },
-        {
-          path: "/reports",
-          element: <Reports />,
-        },
-      ],
-    },
-  ]);
+  // const Struct = () => {
+  //   return (
+  //     <React.Fragment>
+  //       <div>
+  //         <nav>
+  //           <ul>
+  //             <li>
+  //               <Link to="/dashboard">Dashboard</Link>
+  //             </li>
+  //             <li>
+  //               <Link to="/dashboard/analytics">Analytics</Link>
+  //             </li>
+  //             <li>
+  //               <Link to="/dashboard/reports">Reports</Link>
+  //             </li>
+  //           </ul>
+  //         </nav>
+  //       </div>
+  //       <Outlet />
+  //     </React.Fragment>
+  //   );
+  // };
+
+  // const dashRouter = createBrowserRouter([
+  //   {
+  //     path: "/dashboard",
+  //     element: <Struct />,
+  //     children: [
+  //       {
+  //         index: true, // Default route for /dashboard
+  //         element: <h2>Dashboard Overview</h2>,
+  //       },
+  //       {
+  //         path: "/analytics",
+  //         element: <Analytics />,
+  //       },
+  //       {
+  //         path: "/reports",
+  //         element: <Reports />,
+  //       },
+  //     ],
+  //   },
+  // ]);
 
   const AppRouter = () => {
     return (

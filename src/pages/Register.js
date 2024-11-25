@@ -10,6 +10,12 @@ const Register = () => {
   const navigate = useNavigate();
 
   const loginto = () => {
+    const userData = {
+      email: formik.values.email,
+      password: formik.values.password,
+    };
+    // const userData = await response.json();
+    setUser(userData); // This sets the user in the context
     navigate("/auth/login");
   };
 
