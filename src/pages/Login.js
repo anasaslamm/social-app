@@ -3,9 +3,11 @@ import { TextField, Button, Box, Typography, Container } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import CircularProgress from "@mui/material";
 
 const Login = () => {
   const { setUser } = useAuthActionsContext();
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
     email: yup
@@ -25,34 +27,33 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      fetch(
-        "https://nestjs-boilerplate-test.herokuapp.com/api/v1/auth/email/login",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(values),
-        }
-      )
-        .then(async (response) => {
-          console.log("API Response", response.body);
-          if (response.ok) {
-            const userData = {
-              email: values.email,
-              password: values.password,
-            };
-            // const userData = await response.json();
-            setUser(userData); // This sets the user in the context
+      setLoading(true);
+      try {
+        const response = await fetch(
+          "https://nestjs-boilerplate-test.herokuapp.com/api/v1/auth/email/login",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
           }
-        })
-        .catch((e) => {
-          console.log("API Error", e);
-        });
+        );
 
-      // Optionally, you can redirect the user to the homepage after login
-      // window.location.href = "/app/home";
+        if (response.ok) {
+          const userData = await response.json();
+          console.log("Login Successful", userData);
+          setUser(userData); // Save user in context
+        } else {
+          console.error("Login Failed:", response.statusText);
+        }
+      } catch (error) {
+        console.error("API Error:", error);
+      } finally {
+        setLoading(false);
+      }
     },
+
+    // Optionally, you can redirect the user to the homepage after login
+    // window.location.href = "/app/home";
   });
 
   return (
@@ -108,8 +109,9 @@ const Login = () => {
           color="primary"
           fullWidth
           sx={{ padding: "10px 0", marginTop: 2 }}
+          Disabled={loading}
         >
-          Login
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
         </Button>
         <Button component={Link} to="/auth/register">
           Register
