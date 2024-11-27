@@ -3,7 +3,8 @@ import { TextField, Button, Box, Typography, Container } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
-import CircularProgress from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useState } from "react";
 
 const Login = () => {
   const { setUser } = useAuthActionsContext();

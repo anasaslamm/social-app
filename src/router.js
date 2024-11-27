@@ -1,5 +1,5 @@
 //  import { Button } from "@mui/material";
-import React from "react";
+import React, { Suspense } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -17,7 +17,7 @@ import {
   HashRouter,
 } from "react-router-dom";
 import { useAuthContext } from "./providers/auth/useAuthContext";
-import { Home } from "./pages/Home";
+//import {Home} from "./pages/Home";
 import ForgetPassword from "./pages/ForgetPassword";
 import LandingPage from "./pages/LandingPage";
 import ErrorPage from "./pages/error-page";
@@ -113,7 +113,11 @@ function MyApp() {
         children: [
           {
             path: "home",
-            element: <Home />,
+            async lazy() {
+              let { Home } = await import("./pages/Home");
+              return { Component: Home };
+            },
+            //element: <Home />,
             loader: homeLoader,
             HydrateFallback: () => <div>Loading Index...</div>,
           },
@@ -225,44 +229,47 @@ function MyApp() {
   //   },
   // ]);
 
-  const AppRouter = () => {
-    return (
-      <HashRouter future={{ v7_partialHydration: true }}>
-        <Routes>
-          <Route
-            path="/app/*"
-            element={
-              <ProtectedRoute>
-                <Routes>
-                  <Route path="home" element={<Home />} />
-                  <Route path="profile/:id" element={<Profile />} />
-                </Routes>
-              </ProtectedRoute>
-            }
-          />
+  // const AppRouter = () => {
+  //   return (
+  //     <HashRouter future={{ v7_partialHydration: true }}>
+  //       <Routes>
+  //         <Route
+  //           path="/app/*"
+  //           element={
+  //             <ProtectedRoute>
+  //               <Routes>
+  //                 <Route path="home" element={<Home />} />
+  //                 <Route path="profile/:id" element={<Profile />} />
+  //               </Routes>
+  //             </ProtectedRoute>
+  //           }
+  //         />
 
-          <Route
-            path="/auth/*"
-            element={
-              <GuestRoute>
-                <Routes>
-                  <Route path="login" element={<Login />} />
-                  <Route path="register" element={<Register />} />
-                  <Route path="forgetpassword" element={<ForgetPassword />} />
-                </Routes>
-              </GuestRoute>
-            }
-          />
+  //         <Route
+  //           path="/auth/*"
+  //           element={
+  //             <GuestRoute>
+  //               <Routes>
+  //                 <Route path="login" element={<Login />} />
+  //                 <Route path="register" element={<Register />} />
+  //                 <Route path="forgetpassword" element={<ForgetPassword />} />
+  //               </Routes>
+  //             </GuestRoute>
+  //           }
+  //         />
 
-          <Route path="/" element={<LandingPage />} />
-        </Routes>
-      </HashRouter>
-    );
-  };
+  //         <Route path="/" element={<LandingPage />} />
+  //       </Routes>
+  //     </HashRouter>
+  //   );
+  // };
 
   return (
     <div>
-      <RouterProvider router={router} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={router} />
+      </Suspense>
+      {/* <RouterProvider router={router} /> */}
       {/* <AppRouter /> */}
     </div>
   );
