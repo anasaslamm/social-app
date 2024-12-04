@@ -23,13 +23,13 @@ export async function homeLoader() {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
   // console.log("API response status:", response.status);
   const posts = await response.json();
-  console.log("Posts data:", posts);
+  //console.log("Posts data:", posts);
   return json(posts);
 }
 
 export function Home_Layout() {
   const posts = useLoaderData() || [];
-  console.log("Posts in Home_Layout:", posts); // Fallback to an empty array
+  //console.log("Posts in Home_Layout:", posts); // Fallback to an empty array
 
   if (!Array.isArray(posts) || posts.length === 0) {
     return <h2>No posts available</h2>;

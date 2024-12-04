@@ -9,6 +9,7 @@ import { useState } from "react";
 const Login = () => {
   const { setUser } = useAuthActionsContext();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validationSchema = yup.object({
     email: yup
@@ -44,10 +45,11 @@ const Login = () => {
           console.log("Login Successful", userData);
           setUser(userData); // Save user in context
         } else {
-          console.error("Login Failed:", response.statusText);
+          const error = await response.json();
+          setErrorMessage(error.message || "Login failed.");
         }
       } catch (error) {
-        console.error("API Error:", error);
+        setErrorMessage("An error occurred. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -114,6 +116,7 @@ const Login = () => {
         >
           {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
         </Button>
+        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
         <Button component={Link} to="/auth/register">
           Register
         </Button>

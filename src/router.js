@@ -182,87 +182,87 @@ function MyApp() {
   //Build a simple app with nested routes for /dashboard, /dashboard/analytics, and
   // /dashboard/reports. Display a common sidebar for all routes under /dashboard.
 
-  const Analytics = () => <h2>Analytics Page</h2>;
-  const Reports = () => <h2>Reports Page</h2>;
+  // const Analytics = () => <h2>Analytics Page</h2>;
+  // const Reports = () => <h2>Reports Page</h2>;
 
-  const Struct = () => {
-    return (
-      <React.Fragment>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <Link to="/dashboard/analytics">Analytics</Link>
-              </li>
-              <li>
-                <Link to="/dashboard/reports">Reports</Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <Outlet />
-      </React.Fragment>
-    );
-  };
+  // const Struct = () => {
+  //   return (
+  //     <React.Fragment>
+  //       <div>
+  //         <nav>
+  //           <ul>
+  //             <li>
+  //               <Link to="/dashboard">Dashboard</Link>
+  //             </li>
+  //             <li>
+  //               <Link to="/dashboard/analytics">Analytics</Link>
+  //             </li>
+  //             <li>
+  //               <Link to="/dashboard/reports">Reports</Link>
+  //             </li>
+  //           </ul>
+  //         </nav>
+  //       </div>
+  //       <Outlet />
+  //     </React.Fragment>
+  //   );
+  // };
 
-  const dashRouter = createBrowserRouter([
-    {
-      path: "/dashboard",
-      element: <Struct />,
-      children: [
-        {
-          index: true, // Default route for /dashboard
-          element: <h2>Dashboard Overview</h2>,
-        },
-        {
-          path: "/analytics",
-          element: <Analytics />,
-        },
-        {
-          path: "/reports",
-          element: <Reports />,
-        },
-      ],
-    },
-  ]);
+  // const dashRouter = createBrowserRouter([
+  //   {
+  //     path: "/dashboard",
+  //     element: <Struct />,
+  //     children: [
+  //       {
+  //         index: true, // Default route for /dashboard
+  //         element: <h2>Dashboard Overview</h2>,
+  //       },
+  //       {
+  //         path: "/analytics",
+  //         element: <Analytics />,
+  //       },
+  //       {
+  //         path: "/reports",
+  //         element: <Reports />,
+  //       },
+  //     ],
+  //   },
+  // ]);
 
-  const AppRouter = () => {
-    return (
-      <HashRouter future={{ v7_partialHydration: true }}>
-        <Routes>
-          <Route
-            path="/app/*"
-            element={
-              <ProtectedRoute>
-                <Routes>
-                  <Route path="home" element={<Home />} />
-                  <Route path="profile/:id" element={<Profile />} />
-                </Routes>
-              </ProtectedRoute>
-            }
-          />
+  // const AppRouter = () => {
+  //   return (
+  //     <HashRouter future={{ v7_partialHydration: true }}>
+  //       <Routes>
+  //         <Route
+  //           path="/app/*"
+  //           element={
+  //             <ProtectedRoute>
+  //               <Routes>
+  //                 <Route path="home" element={<Home />} />
+  //                 <Route path="profile/:id" element={<Profile />} />
+  //               </Routes>
+  //             </ProtectedRoute>
+  //           }
+  //         />
 
-          <Route
-            path="/auth/*"
-            element={
-              <GuestRoute>
-                <Routes>
-                  <Route path="login" element={<Login />} />
-                  <Route path="register" element={<Register />} />
-                  <Route path="forgetpassword" element={<ForgetPassword />} />
-                </Routes>
-              </GuestRoute>
-            }
-          />
+  //         <Route
+  //           path="/auth/*"
+  //           element={
+  //             <GuestRoute>
+  //               <Routes>
+  //                 <Route path="login" element={<Login />} />
+  //                 <Route path="register" element={<Register />} />
+  //                 <Route path="forgetpassword" element={<ForgetPassword />} />
+  //               </Routes>
+  //             </GuestRoute>
+  //           }
+  //         />
 
-          <Route path="/" element={<LandingPage />} />
-        </Routes>
-      </HashRouter>
-    );
-  };
+  //         <Route path="/" element={<LandingPage />} />
+  //       </Routes>
+  //     </HashRouter>
+  //   );
+  // };
 
   return (
     <div>
