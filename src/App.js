@@ -7,6 +7,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 function App() {
   const queryClient = new QueryClient();
@@ -14,7 +16,9 @@ function App() {
   return (
     <React.Fragment>
       <QueryClientProvider client={queryClient}>
-        <MyApp />
+        <Provider store={store}>
+          <MyApp />
+        </Provider>
       </QueryClientProvider>
     </React.Fragment>
   );

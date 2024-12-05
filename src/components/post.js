@@ -15,9 +15,11 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { useQuery } from "@tanstack/react-query";
+import { increment, decrement } from "../store/authSlice";
 
 import { json } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export async function homeLoader() {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -28,6 +30,9 @@ export async function homeLoader() {
 }
 
 export function Home_Layout() {
+  const likes = useSelector((state) => state.likeCounter.likes); // Get likes object from state
+  const dispatch = useDispatch();
+
   const posts = useLoaderData() || [];
   //console.log("Posts in Home_Layout:", posts); // Fallback to an empty array
 
@@ -65,12 +70,19 @@ export function Home_Layout() {
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
+            <IconButton
+              aria-label="like"
+              onClick={() => dispatch(increment(post.id))} // Ensure `post.id` is being passed
+            >
               <Checkbox
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite sx={{ color: "red" }} />}
+                checked={likes[post.id] > 0} // Determine if the post is liked
               />
             </IconButton>
+            <Typography variant="body2">
+              {likes[post.id] || 0} Likes {/* Show like count */}
+            </Typography>
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
