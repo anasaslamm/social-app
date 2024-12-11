@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  likes: {}, // Stores likes for each post
+  likes: {}, // Stores likes for each post {postId: ..}
 };
 
 const likeSlice = createSlice({
@@ -21,5 +21,5 @@ const likeSlice = createSlice({
   },
 });
 
-export const { increment, decrement } = likeSlice.actions; // Export the action creators
-export default likeSlice.reducer; // Export the reducer
+export const { increment, decrement } = likeSlice.actions;
+export default likeSlice.reducer;
