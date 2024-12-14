@@ -14,29 +14,21 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import { useQuery } from "@tanstack/react-query";
-import { increment, decrement } from "../store/authSlice";
-
-import { json } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-export async function homeLoader() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-  // console.log("API response status:", response.status);
-  const posts = await response.json();
-  //console.log("Posts data:", posts);
-  return json(posts);
-}
+import { useSelector, useDispatch } from "react-redux";
+import { useGetPostsQuery } from "../store/apiStore";
+import { increment } from "../store/authSlice";
 
 export function Home_Layout() {
-  const likes = useSelector((state) => state.likeCounter.likes); // Get likes object from state
+  const likes = useSelector((state) => state.likeCounter.likes);
   const dispatch = useDispatch();
 
-  const posts = useLoaderData() || [];
-  //console.log("Posts in Home_Layout:", posts); // Fallback to an empty array
+  const { data: posts, error, isLoading } = useGetPostsQuery();
+  console.log(error, isLoading);
 
-  if (!Array.isArray(posts) || posts.length === 0) {
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error occurred: {error.message}</div>;
+
+  if (!posts || posts.length === 0) {
     return <h2>No posts available</h2>;
   }
 
@@ -61,7 +53,7 @@ export function Home_Layout() {
           <CardMedia
             component="img"
             height="200"
-            image="https://via.placeholder.com/400x200" // Placeholder image for posts
+            image="https://via.placeholder.com/400x200"
             alt={`Image for ${post.title}`}
           />
           <CardContent>
@@ -72,37 +64,34 @@ export function Home_Layout() {
           <CardActions disableSpacing>
             <IconButton
               aria-label="like"
-              onClick={() => dispatch(increment(post.id))} // Ensure `post.id` is being passed
+              onClick={() => dispatch(increment(post.id))}
             >
               <Checkbox
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite sx={{ color: "red" }} />}
-                checked={likes[post.id] > 0} // Determine if the post is liked
+                checked={likes[post.id] > 0}
               />
             </IconButton>
-            <Typography variant="body2">
-              {likes[post.id] || 0} Likes {/* Show like count */}
-            </Typography>
+            <Typography variant="body2">{likes[post.id] || 0} Likes</Typography>
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
           </CardActions>
         </Card>
       ))}
-      {/* <div>
-        <h1>Posts</h1>
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id}>
-              <h2>{post.title}</h2>
-              <p>{post.body}</p>
-            </li>
-          ))}
-        </ul>
-      </div> */}
     </React.Fragment>
   );
 }
+
+// export async function homeLoader() {
+//   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+//   // console.log("API response status:", response.status);
+//   const posts = await response.json();
+//   //console.log("Posts data:", posts);
+//   return json(posts);
+// }
+
+////////////////////////////////////////////////
 
 // const Post = () => {
 //   //   const { data, isLoading, error } = useQuery({

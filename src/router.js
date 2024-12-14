@@ -118,8 +118,8 @@ function MyApp() {
               return { Component: Home };
             },
             //element: <Home />,
-            loader: homeLoader,
-            HydrateFallback: () => <div>Loading Index...</div>,
+            // loader: homeLoader,
+            // HydrateFallback: () => <div>Loading Index...</div>,
           },
           {
             path: "profile/:id",
