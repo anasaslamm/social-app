@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  likes: {}, // Stores likes for each post {postId: ..}
+  likes: {}, // Stores likes for each post {postId: ...}
 };
 
 const likeSlice = createSlice({
